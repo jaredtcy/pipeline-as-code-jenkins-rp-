@@ -12,9 +12,9 @@ pipeline {
 
     options {
         buildDiscarder logRotator( 
-                    daysToKeepStr: '15', 
-                    numToKeepStr: '10'
-            )
+            daysToKeepStr: '15', 
+            numToKeepStr: '10'
+        )
     }
 
     environment {
@@ -45,12 +45,12 @@ pipeline {
 
         stage('Code Build') {
             steps {
-                 sh 'mvn install -Dmaven.test.skip=false'
+                sh 'mvn install -Dmaven.test.skip=false'
             }
         }
+
         stage('Environment Analysis') {
             parallel {
-                
                 stage('Printing All Global Variables') {
                     steps {
                         sh """
@@ -63,13 +63,13 @@ pipeline {
                         sh 'echo "Hello Student. Thanks for keeping up!"'
                     }
                 }
-
                 stage('Print ENV variable') {
                     steps {
                         sh "echo ${APP_ENV}"
                     }
-            
-          }
-       }   
-     }
-    }
+                }
+            }
+        }
+    } // <--- closing "stages" block
+
+} // <--- closing "pipeline" block
